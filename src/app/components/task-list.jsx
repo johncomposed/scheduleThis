@@ -7,7 +7,7 @@ var TaskList = React.createClass({
     var createTask = function(task, index) {
       return (
         <li key={ index }>
-          { task.text }
+          { task.name }
           <span onClick={ _this.props.removeTask.bind(null, task['.key']) }
                 style={{ color: 'red', marginLeft: '10px', cursor: 'pointer' }}>
             X

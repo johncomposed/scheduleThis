@@ -11,7 +11,15 @@ var Main = React.createClass({
   getInitialState: function () {
     return {
       tasks: [],
-      text: ''
+      dl: {
+        name: '',
+        due: 0,
+        duration: 0,
+        start: 0,
+        place: '',
+        notes: '',
+        tags: ''
+      }
     };
   },
 
@@ -21,16 +29,28 @@ var Main = React.createClass({
 
   handleSubmit: function(e) {
     e.preventDefault();
-    if (this.state.text && this.state.text.trim().length !== 0) {
-      this.firebaseRefs.tasks.push({
-        text: this.state.text
-      });
-      this.setState({text: ""});
+    if (this.state.dl && !Object.keys(this.state.dl).every(function (k) {
+      return (k == '' || k == 0);
+    })) {
+      this.firebaseRefs.tasks.push(this.state.dl);
+      this.setState({dl: {
+        name: '',
+        due: 0,
+        duration: 0,
+        start: 0,
+        place: '',
+        notes: '',
+        tags: ''
+      }});
     } 
   },
 
   onChange: function(e) {
-    this.setState({text: e.target.value})
+    var state = {
+      dl: this.state.dl
+    }
+    state.dl[e.target.id] = e.target.value
+    this.setState(state)
   },
 
   removeTask: function(key) {
@@ -41,12 +61,18 @@ var Main = React.createClass({
   render: function() {
     return (
         <div>
-        <TaskList tasks={this.state.tasks} removeTask={this.removeTask} />
-        
-        <form onSubmit={ this.handleSubmit }>
-          <input onChange={ this.onChange } value={ this.state.text } />
-          <button>Add Task</button>
-        </form>
+          <Navigation />
+          <TaskList tasks={this.state.tasks} removeTask={this.removeTask} />
+          
+          <form onSubmit={ this.handleSubmit }>
+            <div onChange={ this.onChange }>
+              <label>name</label>
+              <input id="name" value={ this.state.dl.name } />
+              <label>Due by</label>
+              <input id="due" value={ this.state.dl.due } />
+            </div>
+            <button>Add Task</button>
+          </form>
         </div>
     );
   }

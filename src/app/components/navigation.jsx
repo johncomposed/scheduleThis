@@ -7,25 +7,28 @@ var NavItem = Bootstrap.NavItem;
 var DropdownButton = Bootstrap.DropdownButton;
 var MenuItem = Bootstrap.MenuItem;
 
+var reactRouter = require('react-router');
+
+var Router = reactRouter.Router;
+var Route = reactRouter.Route;
+var Link = reactRouter.Link;
+var IndexRoute = reactRouter.IndexRoute;
+var IndexLink = reactRouter.IndexLink;
+var browserHistory = reactRouter.browserHistory;
+
+var ACTIVE = { color: 'red' }
+
 var Navigation = React.createClass({
 
   render: function() {
     return (
-      <Navbar className="navbar navbar-inverse navbar-fixed-top">
-        <a className="navbar-brand" href="#">{this.props.projectName}</a>
-        <Nav className="nav navbar-nav">
-          <NavItem className="active" eventKey={1} href="#home">Home</NavItem>
-          <NavItem eventKey={2} href="#about">About</NavItem>
-          <NavItem eventKey={2} href="#about">Contact</NavItem>
-          <DropdownButton eventKey={3} title="Dropdown">
-            <MenuItem eventKey="1">Action</MenuItem>
-            <MenuItem eventKey="2">Another action</MenuItem>
-            <MenuItem eventKey="3">Something else here</MenuItem>
-            <MenuItem divider/>
-            <MenuItem eventKey="4">Separated link</MenuItem>
-          </DropdownButton>
-        </Nav>
-      </Navbar>
+        <div>
+          <ul>
+            <li><Link      to="/"           activeStyle={ACTIVE}>/</Link></li>
+
+            <li><Link      to="/about"      activeStyle={ACTIVE}>/about</Link></li>
+          </ul>
+        </div>
     );
   }
 });

@@ -2,19 +2,34 @@
   var React = require('react'),
     ReactDOM = require('react-dom'),
     injectTapEventPlugin = require('react-tap-event-plugin'),
-    Main = require('./components/main.jsx');
+    Main = require('./components/main.jsx'),
+    About = require('./components/about.jsx'),
+    All = require('./components/all.jsx'),
+    Task = require('./components/task.jsx'),
+    Tasks = require('./components/tasks.jsx');
 
-  //Needed for React Developer Tools
+  var reactRouter = require('react-router');
+
+  var Router = reactRouter.Router;
+  var Route = reactRouter.Route;
+  var Link = reactRouter.Link;
+  var IndexRoute = reactRouter.IndexRoute;
+  var IndexLink = reactRouter.IndexLink;
+  var hashHistory = reactRouter.hashHistory;
+
   window.React = React;
 
-  //Needed for onTouchTap
-  //Can go away when react 1.0 release
-  //Check this repo:
-  //https://github.com/zilverline/react-tap-event-plugin
   injectTapEventPlugin();
 
-  // Render the main app react component into the document body.
-  // For more details see: https://facebook.github.io/react/docs/top-level-api.html#react.render
-  ReactDOM.render(<Main/>, document.body);
+  ReactDOM.render(
+    <Router history={hashHistory}>
+      <Route path="/" component={All}>
+        <IndexRoute name="main" component={Main} />
+        <Route name="about" path="about" component={About} />
+        <Route name="task" path="task" component={Tasks}>
+          <Route path=":id" component={Task} />
+        </Route>
+      </Route>
+  </Router>, document.body);
 
 })();
