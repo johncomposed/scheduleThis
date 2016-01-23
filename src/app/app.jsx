@@ -26,5 +26,3 @@
         </Route>
       </Route>
   </Router>, document.body);
-
-})();
