@@ -13,6 +13,7 @@ var gulp         = require('gulp');
 var handleErrors = require('../util/handleErrors');
 var source       = require('vinyl-source-stream');
 var config       = require('../config').browserify;
+// var babel = require('babelify');
 
 gulp.task('browserify', function(callback) {
 
@@ -29,7 +30,8 @@ gulp.task('browserify', function(callback) {
       extensions: config.extensions,
       // Enable source maps!
       debug: config.debug
-    });
+    })
+   // .transform("babelify", {presets: ["es2015", "react"]})
 
     var bundle = function() {
       // Log when bundling starts
