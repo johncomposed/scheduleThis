@@ -1,7 +1,10 @@
-node_modules
-target
-.lein-*
-app/bower_components
-.sass-cache
-.tmp
-dist
+pom.xml
+*jar
+/lib/
+/classes/
+/out/
+/release/
+/target/
+.lein-deps-sum
+.lein-repl-history
+.lein-plugins/
