@@ -1,7 +1,6 @@
-(function() {
-  var React = require('react'),
-    ReactDOM = require('react-dom'),
-    injectTapEventPlugin = require('react-tap-event-plugin'),
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+  var injectTapEventPlugin = require('react-tap-event-plugin'),
     Main = require('./components/main.jsx');
 
   //Needed for React Developer Tools
@@ -15,6 +14,4 @@
 
   // Render the main app react component into the document body.
   // For more details see: https://facebook.github.io/react/docs/top-level-api.html#react.render
-  ReactDOM.render(<Main/>, document.body);
-
-})();
+  ReactDOM.render(<div>"hi"<Main/></div>, document.body);
