@@ -7,35 +7,45 @@ var Main = React.createClass({
 
   getInitialState: function () {
     return {
-      tasks: [],
+      deadlines: [],
       dl: {
         name: '',
-        due: 0,
-        duration: 0,
-        start: 0,
+        dueBy: 0,
+        totalTime: 0,
+        startTime: 0,
+        timePast: 0,
+        notes: '',
+        tags: []
+      },
+      messeges: [],
+      msg:{
+        name: '',
+        startTime: 0,
+        endTime: 0,
         place: '',
         notes: '',
-        tags: ''
+        tags: []
       }
     };
   },
 
   componentWillMount: function() {
-    this.bindAsArray(new Firebase("https://schedulethis.firebaseio.com/tasks/"), "tasks");
+    this.bindAsArray(new Firebase("https://schedulethis.firebaseio.com/deadlines/"), "deadlines");
+    this.bindAsArray(new Firebase("https://schedulethis.firebaseio.com/messeges/"), "messeges");
   },
 
-  handleSubmit: function(e) {
+  handleSubmitDeadline: function(e) {
     e.preventDefault();
     if (this.state.dl && !Object.keys(this.state.dl).every(function (k) {
       return (k == '' || k == 0);
     })) {
-      this.firebaseRefs.tasks.push(this.state.dl);
+      this.firebaseRefs.deadlines.push(this.state.dl);
       this.setState({dl: {
         name: '',
-        due: 0,
-        duration: 0,
-        start: 0,
-        place: '',
+        dueBy: 0,
+        totalTime: 0,
+        startTime: 0,
+        timePast: 0,
         notes: '',
         tags: ''
       }});
@@ -50,8 +60,8 @@ var Main = React.createClass({
     this.setState(state)
   },
 
-  removeTask: function(key) {
-    var firebaseRef = new Firebase('https://schedulethis.firebaseio.com/tasks/');
+  removeDeadline: function(key) {
+    var firebaseRef = new Firebase('https://schedulethis.firebaseio.com/deadlines/');
     firebaseRef.child(key).remove();
   },
 
@@ -59,14 +69,22 @@ var Main = React.createClass({
     return (
         <div>
           <Topbar />
-          <TaskList tasks={this.state.tasks} removeTask={this.removeTask} />
+          <TaskList tasks={this.state.deadlines} removeTask={this.removeDeadline} />
 
-          <form onSubmit={ this.handleSubmit }>
+          <form onSubmit={ this.handleSubmitDeadline }>
             <div onChange={ this.onChange }>
               <label>name</label>
               <input id="name" value={ this.state.dl.name } />
               <label>Due by</label>
-              <input id="due" value={ this.state.dl.due } />
+              <input id="dueBy" value={ this.state.dl.dueBy } />
+              <label>totalTime</label>
+              <input id="totalTime" value={ this.state.dl.totalTime } />
+              <label>startTime</label>
+              <input id="startTime" value={ this.state.dl.startTime } />
+              <label>notes</label>
+              <input id="notes" value={ this.state.dl.notes } />
+              <label>tags</label>
+              <input id="tags" value={ this.state.dl.tags } />
             </div>
             <button>Add Task</button>
           </form>
