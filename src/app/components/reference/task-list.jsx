@@ -1,4 +1,5 @@
 var React = require('react');
+var Link = require('react-router').Link;
 
 var TaskList = React.createClass({
   render: function() {
@@ -6,7 +7,7 @@ var TaskList = React.createClass({
     var createTask = function(task, index) {
       return (
         <li key={index}>
-          {task.name}
+          <Link to={'task/' + task['.key']}>{task.name}</Link>
           <span onClick={_this.props.removeTask.bind(null, task['.key'])} style={{
             color: 'red',
             marginLeft: '10px',
