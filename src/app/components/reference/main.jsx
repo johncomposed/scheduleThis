@@ -1,6 +1,6 @@
 var React = require('react');
 var Topbar = require('./topbar.jsx');
-var TaskList = require('./reference/task-list.jsx');
+var TaskList = require('./task-list.jsx');
 
 var Main = React.createClass({
   mixins: [ReactFireMixin],

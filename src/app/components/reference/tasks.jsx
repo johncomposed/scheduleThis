@@ -1,14 +1,14 @@
 var React = require('react');
 
-var All = React.createClass({
+var Tasks = React.createClass({
   render: function(argument) {
     return (
       <div>
+        <h1>Tasks</h1>
         {this.props.children}
       </div>
     );
   }
-
 });
 
-module.exports = All;
+module.exports = Tasks;
