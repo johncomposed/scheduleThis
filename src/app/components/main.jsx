@@ -17,8 +17,8 @@ var Main = React.createClass({
         notes: '',
         tags: []
       },
-      messeges: [],
-      msg:{
+      meetings: [],
+      met:{
         name: '',
         startTime: 0,
         endTime: 0,
@@ -31,7 +31,7 @@ var Main = React.createClass({
 
   componentWillMount: function() {
     this.bindAsArray(new Firebase("https://schedulethis.firebaseio.com/deadlines/"), "deadlines");
-    this.bindAsArray(new Firebase("https://schedulethis.firebaseio.com/messeges/"), "messeges");
+    this.bindAsArray(new Firebase("https://schedulethis.firebaseio.com/meetings/"), "meetings");
   },
 
   handleSubmitDeadline: function(e) {
@@ -48,6 +48,23 @@ var Main = React.createClass({
         timePast: 0,
         notes: '',
         tags: ''
+      }});
+    }
+  },
+
+  handleSubmitMeetings: function(e) {
+    e.preventDefault();
+    if (this.state.met && !Object.keys(this.state.met).every(function (k) {
+      return (k == '' || k == 0);
+    })) {
+      this.firebaseRefs.meetings.push(this.state.met);
+      this.setState({met: {
+        name: '',
+        startTime: 0,
+        endTime: 0,
+        place: '',
+        notes: '',
+        tags: []
       }});
     }
   },
@@ -86,7 +103,7 @@ var Main = React.createClass({
               <label>tags</label>
               <input id="tags" value={ this.state.dl.tags } />
             </div>
-            <button>Add Task</button>
+            <button>Add Deadline</button>
           </form>
         </div>
     );
